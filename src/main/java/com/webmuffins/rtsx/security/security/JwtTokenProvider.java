@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import com.webmuffins.rtsx.security.constant.Role;
 import com.webmuffins.rtsx.security.exception.InvalidTokenException;
 
 @Component
@@ -35,10 +36,10 @@ public class JwtTokenProvider {
         this.userDetailsService = userDetailsService;
     }
 
-    public String createJwtToken(String email, String password) {
+    public String createJwtToken(String email, Role role) {
         Claims claims = Jwts.claims()
                 .setSubject(email);
-        claims.put("password", password);
+        claims.put("role", role.getName());
         Date now = new Date();
         Date expiration = new Date(now.getTime() + validityTime * 1000);
 

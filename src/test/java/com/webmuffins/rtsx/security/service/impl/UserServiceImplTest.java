@@ -1,7 +1,6 @@
 package com.webmuffins.rtsx.security.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -14,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.webmuffins.rtsx.security.entity.User;
-import com.webmuffins.rtsx.security.repository.UserJPARepository;
+import com.webmuffins.rtsx.security.repository.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -24,7 +23,7 @@ class UserServiceImplTest {
     private User user;
 
     @Mock
-    private UserJPARepository userJPARepository;
+    private UserRepository userRepository;
 
     @InjectMocks
     private UserServiceImpl testInstance;
@@ -38,7 +37,7 @@ class UserServiceImplTest {
 
     @Test
     void shouldFindUserByEmail() {
-        when(userJPARepository.findByEmail(DEFAULT_USER_EMAIL)).thenReturn(Optional.of(user));
+        when(userRepository.findByEmail(DEFAULT_USER_EMAIL)).thenReturn(Optional.of(user));
 
         User actual = testInstance.findUserByEmail(DEFAULT_USER_EMAIL);
 
