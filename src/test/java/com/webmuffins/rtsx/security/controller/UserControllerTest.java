@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import com.webmuffins.rtsx.security.constant.Role;
 import com.webmuffins.rtsx.security.dto.user.AuthenticationRequestDto;
 import com.webmuffins.rtsx.security.dto.user.AuthenticationResponseDto;
 import com.webmuffins.rtsx.security.entity.User;
@@ -25,6 +26,7 @@ class UserControllerTest {
     private static final String DEFAULT_EMAIL = "email@email.me";
     private static final String DEFAULT_PASSWORD = "password";
     private static final String DEFAULT_TOKEN = "token";
+    private static final Role DEFAULT_ROLE = Role.USER;
 
     private AuthenticationRequestDto authenticationRequestDto;
     private User user;
@@ -41,7 +43,7 @@ class UserControllerTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @InjectMocks
-    private UserController testInstance;
+    private AuthenticationController testInstance;
 
     @BeforeEach
     void setUp() {
@@ -51,7 +53,7 @@ class UserControllerTest {
         authentication = new UsernamePasswordAuthenticationToken(DEFAULT_EMAIL, DEFAULT_PASSWORD);
 
         user.setEmail(DEFAULT_EMAIL);
-        user.setPassword(DEFAULT_PASSWORD);
+        user.setRole(DEFAULT_ROLE);
         authenticationRequestDto.setEmail(DEFAULT_EMAIL);
         authenticationRequestDto.setPassword(DEFAULT_PASSWORD);
         authenticationResponseDto.setToken(DEFAULT_TOKEN);
@@ -60,7 +62,7 @@ class UserControllerTest {
     @Test
     void shouldAuthenticate() {
         when(userService.findUserByEmail(DEFAULT_EMAIL)).thenReturn(user);
-        when(jwtTokenProvider.createJwtToken(DEFAULT_EMAIL, DEFAULT_PASSWORD)).thenReturn(DEFAULT_TOKEN);
+        when(jwtTokenProvider.createJwtToken(DEFAULT_EMAIL, DEFAULT_ROLE)).thenReturn(DEFAULT_TOKEN);
 
         AuthenticationResponseDto actual = testInstance.authenticate(authenticationRequestDto);
 
