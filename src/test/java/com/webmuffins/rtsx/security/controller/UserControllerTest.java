@@ -61,7 +61,7 @@ class UserControllerTest {
 
     @Test
     void shouldAuthenticate() {
-        when(userService.findUserByEmail(DEFAULT_EMAIL)).thenReturn(user);
+        when(userService.getUserEntityByEmail(DEFAULT_EMAIL)).thenReturn(user);
         when(jwtTokenProvider.createJwtToken(DEFAULT_EMAIL, DEFAULT_ROLE)).thenReturn(DEFAULT_TOKEN);
 
         AuthenticationResponseDto actual = testInstance.authenticate(authenticationRequestDto);

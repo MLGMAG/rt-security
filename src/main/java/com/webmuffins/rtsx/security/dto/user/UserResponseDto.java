@@ -1,19 +1,20 @@
 package com.webmuffins.rtsx.security.dto.user;
 
-import java.util.UUID;
+import com.webmuffins.rtsx.security.constant.Role;
 
 public class UserResponseDto {
 
-    private UUID id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
+    private Role role;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -39,5 +40,13 @@ public class UserResponseDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

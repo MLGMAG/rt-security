@@ -19,7 +19,13 @@ public class UserMapper implements Mapper<User, RegistrationDto, UserResponseDto
 
     @Override
     public UserResponseDto mapEntityToDto(User user) {
-        return null;
+        UserResponseDto dto = new UserResponseDto();
+        dto.setRole(user.getRole());
+        dto.setEmail(user.getEmail());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+        dto.setId(user.getId());
+        return dto;
     }
 
     @Override

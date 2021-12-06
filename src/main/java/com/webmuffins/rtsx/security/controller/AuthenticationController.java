@@ -31,7 +31,7 @@ public class AuthenticationController {
     @PostMapping
     public AuthenticationResponseDto authenticate(@RequestBody AuthenticationRequestDto authenticationRequestDto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequestDto.getEmail(), authenticationRequestDto.getPassword()));
-        User user = userService.findUserByEmail(authenticationRequestDto.getEmail());
+        User user = userService.getUserEntityByEmail(authenticationRequestDto.getEmail());
         String jwtToken = jwtTokenProvider.createJwtToken(user.getEmail(), user.getRole());
         AuthenticationResponseDto responseDto = new AuthenticationResponseDto();
         responseDto.setToken(jwtToken);
