@@ -43,7 +43,7 @@ class UserDetailsServiceImplTest {
 
     @Test
     void shouldLoadByUsername() {
-        when(userService.findUserByEmail(DEFAULT_USERNAME)).thenReturn(user);
+        when(userService.getUserEntityByEmail(DEFAULT_USERNAME)).thenReturn(user);
 
         UserDetails actual = testInstance.loadUserByUsername(DEFAULT_USERNAME);
 

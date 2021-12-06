@@ -1,12 +1,13 @@
 package com.webmuffins.rtsx.security.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.webmuffins.rtsx.security.dto.user.RegistrationDto;
+import com.webmuffins.rtsx.security.dto.user.UserResponseDto;
 import com.webmuffins.rtsx.security.service.UserService;
 
 @RestController
@@ -19,9 +20,24 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("test")
-    public String test() {
-        return "You are authenticated";
+    @GetMapping
+    public List<UserResponseDto> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/email/{email}")
+    public UserResponseDto getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
+
+    @GetMapping("/{id}")
+    public UserResponseDto getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+    @GetMapping("/current")
+    public UserResponseDto getCurrentUserInfo() {
+        return userService.getCurrentUserInfo();
     }
 
 }
