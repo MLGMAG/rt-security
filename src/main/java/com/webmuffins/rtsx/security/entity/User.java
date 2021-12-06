@@ -1,5 +1,6 @@
 package com.webmuffins.rtsx.security.entity;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -84,5 +85,31 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(
+                getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword())
+                && Objects.equals(
+                getTeam(), user.getTeam()) && getRole() == user.getRole();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getTeam(), getRole());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\''
+                + ", password='" + password + '\'' + ", role=" + role + '}';
     }
 }

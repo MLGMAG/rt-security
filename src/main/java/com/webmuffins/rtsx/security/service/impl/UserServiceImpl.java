@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.mapEntityToDto(user);
     }
 
-
-
     @Override
     public User getUserEntityByEmail(String email) {
         return userRepository.findByEmail(email)
@@ -50,7 +48,8 @@ public class UserServiceImpl implements UserService {
     public void registerUser(RegistrationDto registrationDto) {
         User user = userMapper.mapDtoToEntity(registrationDto);
         userRepository.save(user);
-        LOG.info("Created user : {}", user);
+        LOG.info("Created user with email: {}", user.getEmail());
+        LOG.debug("Created user : {}", user);
     }
 
     @Override
