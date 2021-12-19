@@ -33,7 +33,16 @@ public class AuthenticationController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequestDto.getEmail(), authenticationRequestDto.getPassword()));
         User user = userService.getUserEntityByEmail(authenticationRequestDto.getEmail());
         String jwtToken = jwtTokenProvider.createJwtToken(user.getEmail(), user.getRole());
+
+        return generateResponse(user, jwtToken);
+    }
+
+    private AuthenticationResponseDto generateResponse(User user, String jwtToken) {
         AuthenticationResponseDto responseDto = new AuthenticationResponseDto();
+        responseDto.setFirstName(user.getFirstName());
+        responseDto.setLastName(user.getLastName());
+        responseDto.setTeam(user.getTeam());
+        responseDto.setRole(user.getRole());
         responseDto.setToken(jwtToken);
         return responseDto;
     }

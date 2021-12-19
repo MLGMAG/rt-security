@@ -57,6 +57,7 @@ class UserControllerTest {
         authenticationRequestDto.setEmail(DEFAULT_EMAIL);
         authenticationRequestDto.setPassword(DEFAULT_PASSWORD);
         authenticationResponseDto.setToken(DEFAULT_TOKEN);
+        authenticationResponseDto.setRole(DEFAULT_ROLE);
     }
 
     @Test
@@ -67,7 +68,6 @@ class UserControllerTest {
         AuthenticationResponseDto actual = testInstance.authenticate(authenticationRequestDto);
 
         verify(authenticationManager).authenticate(authentication);
-
         assertThat(actual)
                 .isNotNull()
                 .isEqualTo(authenticationResponseDto);
